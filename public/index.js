@@ -17,7 +17,7 @@ function searchBook(query) {
         .then(res => res.json())
         .then((jsonData) => {
             const results = jsonData
-            console.log(results)
+            console.log(results[0].show.network.name)
         })
     }
 
