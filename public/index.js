@@ -18,7 +18,7 @@ function searchBook (query) {
     .then((jsonData) => {
       const results = jsonData
       results.forEach((element) => {
-        console.log(element.show.image)
+        console.log(element.show.summary)
 
         const showListItem = document.createElement('li')
         showListItem.classList.add('list-group-item')
@@ -31,11 +31,17 @@ function searchBook (query) {
         showListItem.appendChild(showTitle)
         
         if (element.show.image.medium != null) {
-          const showPic = element.show.image.medium
+          const showPicUrl = element.show.image.medium
           const showImg = document.createElement('img')
-          showImg.setAttribute('src', showPic)
+          showImg.setAttribute('src', showPicUrl)
           showListItem.appendChild(showImg)
         }
+        
+        // const summary = document.createElement('p')
+        // summary.appendChild(document.createTextNode(`${element.show.summary}`))
+        showListItem.insertAdjacentHTML('beforeend', element.show.summary)
+
+
       })
     })
 }
