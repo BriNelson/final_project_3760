@@ -18,7 +18,8 @@ function searchBook (query) {
     .then((jsonData) => {
       const results = jsonData
       results.forEach((element) => {
-        console.log(element.show)
+        console.log(element.show.image)
+
         const showListItem = document.createElement('li')
         showListItem.classList.add('list-group-item')
 
@@ -28,9 +29,13 @@ function searchBook (query) {
         const showTitle = document.createElement('h3')
         showTitle.appendChild(document.createTextNode(`${element.show.name}`))
         showListItem.appendChild(showTitle)
-
-        const showImg = document.createElement('img src""')
-        showListItem.appendChild(showImg)
+        
+        if (element.show.image.medium != null) {
+          const showPic = element.show.image.medium
+          const showImg = document.createElement('img')
+          showImg.setAttribute('src', showPic)
+          showListItem.appendChild(showImg)
+        }
       })
     })
 }
