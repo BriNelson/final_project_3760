@@ -47,7 +47,7 @@ function searchBook(query) {
         if (element.show.summary != null) {
           wordContainer.insertAdjacentHTML("beforeend", element.show.summary);
         }
-        if (element.show.network.name != null) {
+        if (element.show.network != null) {
           const networkBadge = document.createElement('span');
           networkBadge.classList.add("badge");
           networkBadge.classList.add("bg-secondary");
@@ -55,13 +55,13 @@ function searchBook(query) {
           wordContainer.appendChild(networkBadge);
         }
 
-        // if (element.show.webChannel.name != null) {
-        //   const networkBadge = document.createElement('span');
-        //   networkBadge.classList.add("badge");
-        //   networkBadge.classList.add("bg-secondary");
-        //   networkBadge.appendChild(document.createTextNode(`${element.show.webChannel.name}`));
-        //   wordContainer.appendChild(networkBadge);
-        // }
+        if (element.show.webChannel != null) {
+          const streamBadge = document.createElement('span');
+          streamBadge.classList.add("badge");
+          streamBadge.classList.add("bg-secondary");
+          streamBadge.appendChild(document.createTextNode(`${element.show.webChannel.name}`));
+          wordContainer.appendChild(streamBadge);
+        }
 
       });
     });
