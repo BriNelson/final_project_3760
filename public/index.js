@@ -35,6 +35,7 @@ function searchBook(query) {
         }
         // contains the summary an title
         const wordContainer = document.createElement("div");
+        wordContainer.classList.add("word-container");
         wordContainer.classList.add("ms-3");
         showListItem.appendChild(wordContainer);
 
@@ -62,6 +63,29 @@ function searchBook(query) {
           streamBadge.appendChild(document.createTextNode(`${element.show.webChannel.name}`));
           wordContainer.appendChild(streamBadge);
         }
+
+        const btnContainer = document.createElement("div");
+        
+        btnContainer.classList.add("pt-5");
+        btnContainer.classList.add("mx-auto");
+        
+        
+        showListItem.appendChild(btnContainer);
+
+        const wantWatchButton = document.createElement("button");
+        wantWatchButton.appendChild(document.createTextNode("Watch List"));
+        wantWatchButton.classList.add("me-1");
+        wantWatchButton.classList.add("btn");
+        wantWatchButton.classList.add("btn-primary");
+        btnContainer.appendChild(wantWatchButton);
+
+        const favoriteButton = document.createElement("button");
+        favoriteButton.appendChild(document.createTextNode("Fave List"));
+        favoriteButton.classList.add("btn");
+        favoriteButton.classList.add("btn-primary");
+        
+
+        btnContainer.appendChild(favoriteButton);
 
       });
     });

@@ -24,7 +24,7 @@ app.use(express.static('public')) /// /enviorment variable needs to go here
 
 
 app.post('/haveWatched', (req, res) => {
-  // const todo = req.body
+  
   const movieSave = new movieSaveSchema({
 
     title: req.body.title,
@@ -41,7 +41,23 @@ app.post('/haveWatched', (req, res) => {
   movieSave.save().then((result) => { console.log(result) })
 })
 
+app.post('/wantWatched', (req, res) => {
+  
+  const movieSave = new movieSaveSchema({
 
+    title: req.body.title,
+    key: req.body.key,
+    summary: req.body.summary,
+    network: req.body.network,
+    imgUrl: req.body.imgUrl,
+    genere: req.body.genere,
+    score: req.body.score,
+    wantWatch: req.body.wantWatch,
+    favorite: req.body.favorite
+
+  })
+  movieSave.save().then((result) => { console.log(result) })
+})
 
 
 
