@@ -10,15 +10,15 @@ searchButton.addEventListener("click", function (event) {
 console.log(searchInput.value);
 
 function searchBook(query) {
-  // document.querySelector('#searchResultsList').innerHTML = ''
+  document.querySelector('#searchResultsList').innerHTML = ''
   const url = `https://api.tvmaze.com/search/shows?q=${query}`;
   fetch(url)
     .then((res) => res.json())
     .then((jsonData) => {
       const results = jsonData;
-      console.log(results)
+      console.log(results);
       results.forEach((element) => {
-        console.log(element.score)
+        console.log(element.score);
         // search list item
         const showListItem = document.createElement("li");
         showListItem.classList.add("list-group-item");
@@ -49,27 +49,30 @@ function searchBook(query) {
           wordContainer.insertAdjacentHTML("beforeend", element.show.summary);
         }
         if (element.show.network != null) {
-          const networkBadge = document.createElement('span');
+          const networkBadge = document.createElement("span");
           networkBadge.classList.add("badge");
           networkBadge.classList.add("bg-secondary");
-          networkBadge.appendChild(document.createTextNode(`${element.show.network.name}`));
+          networkBadge.appendChild(
+            document.createTextNode(`${element.show.network.name}`)
+          );
           wordContainer.appendChild(networkBadge);
         }
 
         if (element.show.webChannel != null) {
-          const streamBadge = document.createElement('span');
+          const streamBadge = document.createElement("span");
           streamBadge.classList.add("badge");
           streamBadge.classList.add("bg-secondary");
-          streamBadge.appendChild(document.createTextNode(`${element.show.webChannel.name}`));
+          streamBadge.appendChild(
+            document.createTextNode(`${element.show.webChannel.name}`)
+          );
           wordContainer.appendChild(streamBadge);
         }
 
         const btnContainer = document.createElement("div");
-        
+
         btnContainer.classList.add("pt-5");
         btnContainer.classList.add("mx-auto");
-        
-        
+
         showListItem.appendChild(btnContainer);
 
         const wantWatchButton = document.createElement("button");
@@ -85,31 +88,21 @@ function searchBook(query) {
         favoriteButton.classList.add("btn-primary");
         btnContainer.appendChild(favoriteButton);
 
-        
-        
         if (element.show.webChannel === null) {
-          var webChannelNetwork = null
-         } if (element.show.webChannel !== null) {
-           var webChannelNetwork = element.show.webChannel.name
+          var webChannelNetwork = null;
         }
-        
+        if (element.show.webChannel !== null) {
+          var webChannelNetwork = element.show.webChannel.name;
+        }
+
         if (element.show.network === null) {
-          var networkVar = null
-        } if (element.show.network !== null) {
-          var networkVar = element.show.network.name
+          var networkVar = null;
         }
-         
-          
-        
-        
-        
-        
-        
-        
-        
+        if (element.show.network !== null) {
+          var networkVar = element.show.network.name;
+        }
+
         wantWatchButton.addEventListener("click", function (event) {
-         
-          
           fetch("/wantWatch", {
             method: "POST",
             headers: {
@@ -119,11 +112,11 @@ function searchBook(query) {
               title: element.show.name,
               key: element.show.id,
               summary: element.show.summary,
-                network: networkVar,
+              network: networkVar,
               imgUrl: element.show.image.medium,
-                genere: element.show.genres,
+              genere: element.show.genres,
               score: element.score,
-                webChannel: webChannelNetwork,
+              webChannel: webChannelNetwork,
               faveList: false,
               wantWatch: true,
             }),
@@ -135,6 +128,34 @@ function searchBook(query) {
               console.log(data);
             });
         });
+
+        favoriteButton.addEventListener("click", function (event) {
+          fetch("/favorite", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title: element.show.name,
+              key: element.show.id,
+              summary: element.show.summary,
+              network: networkVar,
+              imgUrl: element.show.image.medium,
+              genere: element.show.genres,
+              score: element.score,
+              webChannel: webChannelNetwork,
+              faveList: true,
+              wantWatch: false,
+            }),
+          })
+            .then((result) => {
+              return result.json();
+            })
+            .then((data) => {
+              console.log(data);
+            });
+        });
+
 
       });
     });

@@ -23,7 +23,7 @@ app.use(bodyParser.json())
 app.use(express.static('public')) /// /enviorment variable needs to go here
 
 
-app.post('/haveWatched', (req, res) => {
+app.post('/favorite', (req, res) => {
   
   const movieSave = new movieSaveSchema({
 
@@ -34,8 +34,8 @@ app.post('/haveWatched', (req, res) => {
     imgUrl: req.body.imgUrl,
     genere: req.body.genere,
     score: req.body.score,
-    
-    faveList: req.body.favorite,
+    webChannel: req.body.webChannel,
+    faveList: req.body.faveList,
     wantWatch: req.body.wantWatch,
 
   })
