@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import movieSaveSchema from './models/movieModel.js'
-// TODO: config file
+
 import { port, mongoUri } from './config.js'
 console.log(`Your port is ${port}`)
 const app = express()
@@ -34,15 +34,16 @@ app.post('/haveWatched', (req, res) => {
     imgUrl: req.body.imgUrl,
     genere: req.body.genere,
     score: req.body.score,
+    
+    faveList: req.body.favorite,
     wantWatch: req.body.wantWatch,
-    favorite: req.body.favorite
 
   })
   movieSave.save().then((result) => { console.log(result) })
 })
 
-app.post('/wantWatched', (req, res) => {
-  
+app.post('/wantWatch', (req, res) => {
+   console.log("hitting end points")
   const movieSave = new movieSaveSchema({
 
     title: req.body.title,
@@ -52,8 +53,9 @@ app.post('/wantWatched', (req, res) => {
     imgUrl: req.body.imgUrl,
     genere: req.body.genere,
     score: req.body.score,
+    webChannel: req.body.webChannel,
+    faveList: req.body.faveList,
     wantWatch: req.body.wantWatch,
-    favorite: req.body.favorite
 
   })
   movieSave.save().then((result) => { console.log(result) })

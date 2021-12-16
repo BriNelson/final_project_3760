@@ -10,7 +10,8 @@ const movieSchema = new Schema({
   imgUrl: String,
   genere: Array,
   score: Number,
-  favorite: Boolean,
+  webChannel: String,
+  faveList: Boolean,
   wantWatch: Boolean
 
 })

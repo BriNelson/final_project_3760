@@ -18,7 +18,7 @@ function searchBook(query) {
       const results = jsonData;
       console.log(results)
       results.forEach((element) => {
-        console.log(element.show.webChannel)
+        console.log(element.score)
         // search list item
         const showListItem = document.createElement("li");
         showListItem.classList.add("list-group-item");
@@ -83,9 +83,58 @@ function searchBook(query) {
         favoriteButton.appendChild(document.createTextNode("Fave List"));
         favoriteButton.classList.add("btn");
         favoriteButton.classList.add("btn-primary");
-        
-
         btnContainer.appendChild(favoriteButton);
+
+        
+        
+        if (element.show.webChannel === null) {
+          var webChannelNetwork = null
+         } if (element.show.webChannel !== null) {
+           var webChannelNetwork = element.show.webChannel.name
+        }
+        
+        if (element.show.network === null) {
+          var networkVar = null
+        } if (element.show.network !== null) {
+          var networkVar = element.show.network.name
+        }
+         
+          
+        
+        
+        
+        
+        
+        
+        
+        wantWatchButton.addEventListener("click", function (event) {
+         
+          
+          fetch("/wantWatch", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title: element.show.name,
+              key: element.show.id,
+              summary: element.show.summary,
+                network: networkVar,
+              imgUrl: element.show.image.medium,
+                genere: element.show.genres,
+              score: element.score,
+                webChannel: webChannelNetwork,
+              faveList: false,
+              wantWatch: true,
+            }),
+          })
+            .then((result) => {
+              return result.json();
+            })
+            .then((data) => {
+              console.log(data);
+            });
+        });
 
       });
     });
